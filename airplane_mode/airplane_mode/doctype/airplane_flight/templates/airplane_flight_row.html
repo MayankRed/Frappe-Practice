@@ -1,0 +1,9 @@
+<div class="card">
+	<div class="card-body">
+		<b class="card-title" style="font-size: larger; color: black;">{{ doc.airplane}}</b>
+		<p class="card-text">{{doc.source_airport_code}} -> {{doc.destination_airport_code}}</p>
+		<p class="card-text">{{doc.date_of_departure}}| {{doc.time_of_departure}}| {{frappe.utils.format_duration(doc.duration)}}</p>
+		<a href="{{ doc.route }}" style="color: rgb(0, 110, 255);">View Flight </a>
+	</div>
+</div>
+<!-- this is a sample default list template -->
