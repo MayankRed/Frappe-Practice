@@ -24,4 +24,13 @@ class AirplaneTicket(Document):
 		self.total_amount = totalAmount
 		seat = self.generate_seat_number()
 		self.seat= seat
+		self.seat_count()
 
+	def seat_count(self):
+		flight = frappe.get_doc("Airplane Flight", self.flight)
+		airplane = frappe.get_doc("Airplane", flight.airplane)
+		ticket_count = frappe.db.count("Airplane Ticket",filters = {"flight":self.flight})
+		print("Hello Here ",ticket_count, airplane.capacity)
+		if ticket_count >= airplane.capacity:
+			frappe.throw(("Cannot create ticket. The airplane for this flight is fully booked."))
+		
