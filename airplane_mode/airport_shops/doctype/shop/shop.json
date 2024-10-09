@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:shop_name",
+ "creation": "2024-10-07 12:10:21.373872",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "shop_details_section",
+  "shop_name",
+  "shop_number",
+  "airport",
+  "column_break_ukcy",
+  "area_of_shop",
+  "rent_amount",
+  "is_available"
+ ],
+ "fields": [
+  {
+   "fieldname": "shop_details_section",
+   "fieldtype": "Section Break",
+   "label": "Shop Details "
+  },
+  {
+   "fieldname": "shop_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Shop Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "shop_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Shop Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "airport",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Airport",
+   "options": "Airport",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ukcy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "area_of_shop",
+   "fieldtype": "Data",
+   "label": "Area of Shop"
+  },
+  {
+   "fieldname": "rent_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Rent Amount",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_available",
+   "fieldtype": "Check",
+   "label": "Is Available"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-10-07 15:29:09.719160",
+ "modified_by": "Administrator",
+ "module": "Airport Shops",
+ "name": "Shop",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
