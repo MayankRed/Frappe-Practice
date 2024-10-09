@@ -149,7 +149,7 @@ app_license = "mit"
 # ---------------
 scheduler_events ={
     "cron": {
-        "* * * * *": [
+        "* * 1 * *": [
             "airplane_mode.tasks.rent_reminder"
         ]
     }
