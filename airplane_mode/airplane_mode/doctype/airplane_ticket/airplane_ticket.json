@@ -10,6 +10,7 @@
   "passenger_name",
   "status",
   "source_airport_code",
+  "gate_no",
   "column_break_qcma",
   "flight",
   "seat",
@@ -124,11 +125,19 @@
    "fieldtype": "Data",
    "label": "seat ",
    "read_only": 1
+  },
+  {
+   "fetch_from": "flight.gate_of_departure",
+   "fieldname": "gate_no",
+   "fieldtype": "Int",
+   "label": "Gate No",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-02 17:23:11.372185",
+ "modified": "2024-10-03 15:18:55.369432",
  "modified_by": "Administrator",
  "module": "Airplane Mode",
  "name": "Airplane Ticket",

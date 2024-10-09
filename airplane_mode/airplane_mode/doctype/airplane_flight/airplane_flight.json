@@ -25,6 +25,7 @@
   "duration",
   "column_break_pjzg",
   "time_of_departure",
+  "gate_of_departure",
   "amount_section",
   "price"
  ],
@@ -144,13 +145,19 @@
    "fieldtype": "Currency",
    "label": "Price",
    "reqd": 1
+  },
+  {
+   "fieldname": "gate_of_departure",
+   "fieldtype": "Int",
+   "label": "Gate of Departure",
+   "reqd": 1
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2024-10-02 17:21:14.106876",
+ "modified": "2024-10-03 15:18:33.141438",
  "modified_by": "Administrator",
  "module": "Airplane Mode",
  "name": "Airplane Flight",
