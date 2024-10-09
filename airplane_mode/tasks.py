@@ -6,14 +6,15 @@ def rent_reminder():
     
     # Check if today is the 1st of the month
     if today.day == 1:
-        contracts = frappe.get_all('Contract', filters={'expiry_date': ['>=', today]}, fields=['tenant_email', 'expiry_date'])
-            
-        for contract in contracts:
-            tenant_email = contract['tenant_email']
+        contracts = frappe.get_all('Contract', filters={'expiry_date': ['>=', today], 'rent_reminder': '1'}, fields=['tenant_email', 'expiry_date'])
                 
-            frappe.sendmail(
+        for contract in contracts:
+                tenant_email = contract['tenant_email']
+                    
+                frappe.sendmail(
                     recipients=[tenant_email],
                     subject="Monthly Rent Reminder",
-                    message="This is a reminder that your rent is due. Please make the necessary arrangements."
+                    message="This is a reminder that your rent is due. Please make the necessary arrangements.",
+                    delayed=False
                 )
 

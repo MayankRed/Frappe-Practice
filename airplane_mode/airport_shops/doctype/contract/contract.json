@@ -12,7 +12,8 @@
   "column_break_upfr",
   "from",
   "expiry_date",
-  "rent"
+  "rent",
+  "rent_reminder"
  ],
  "fields": [
   {
@@ -44,7 +45,8 @@
    "fetch_from": "shop.rent_amount",
    "fieldname": "rent",
    "fieldtype": "Currency",
-   "label": "Rent"
+   "label": "Rent",
+   "read_only": 1
   },
   {
    "fetch_from": "tenant.email",
@@ -58,11 +60,17 @@
    "in_list_view": 1,
    "label": "Expiry Date",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rent_reminder",
+   "fieldtype": "Check",
+   "label": "Rent Reminder"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-08 16:15:33.998814",
+ "modified": "2024-10-09 11:48:49.330648",
  "modified_by": "Administrator",
  "module": "Airport Shops",
  "name": "Contract",

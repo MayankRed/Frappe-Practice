@@ -5,6 +5,11 @@ app_description = "this is airplane mode so you won\'t revive any call "
 app_email = "nandwanimayank16d@gmail.com"
 app_license = "mit"
 
+
+website_route_rules = [
+    {"from_route": "/shops", "to_route": "shops"},  
+]
+
 # Apps
 # ------------------
 
