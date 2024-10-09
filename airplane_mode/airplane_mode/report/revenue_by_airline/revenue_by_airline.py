@@ -15,30 +15,28 @@ def execute(filters=None):
 def get_coulmn():
 	return [
 		{
-			'lable':'Airline',
 			'fieldname':'airline',
+			'lable':'Airline',
             'fieldtype':'Data',
+			'options': ''
 		},
 		{
-			'lable': 'Revenue',
 			'fieldname':'revenue',
+			'lable': 'Revenue',
             'fieldtype':'Currency'
 		}
 	]
 
 def get_data():
-	airT = frappe.qb.DocType("Airplane Ticket")
-	airF = frappe.qb.DocType("Airplane Flight")
-	air = frappe.qb.DocType("Airplane")
 
 	result = frappe.db.sql(
 		f"""
 		SELECT air.airline,airT.total_amount 
-		FROM airF
-		INNER JOIN air ON air.name = airF.airplane
-		INNER JOIN airT ON airT.flight = airF.name
+		FROM `tabAirplane Flight` AS airF
+		INNER JOIN `tabAirplane` AS air ON air.name = airF.airplane
+		INNER JOIN `tabAirplane Ticket` AS airT ON airT.flight = airF.name
+		GROUP BY air.airline
 		"""
 		)
 	print("Hello Result: ",result)
 	return result
-
