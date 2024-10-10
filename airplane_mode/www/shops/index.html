@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>New Page</h1>
-</body>
-</html>
+{% extends "templates/pages/header_footer.html"%}
+
+{% block main %}
+<h1>Shops List:</h1>
+<div class="row">
+{% for shop in shops %}
+
+    <div class="col-sm-4 mr-auto mx-2 my-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Shop Name: {{ shop.shop_name}}</h5>
+          <p class="card-text">Airport: {{ shop.airport }} <br> Rent: {{shop.rent_amount}} </p>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+    </div>
+
+{%endfor %}
+</div>
+{% endblock %}

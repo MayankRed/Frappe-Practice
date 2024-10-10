@@ -1,0 +1,47 @@
+{% extends "templates/pages/header_footer.html"%}
+
+{% block style %}
+<style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .about-section {
+      padding: 50px 0;
+    }
+    .about-heading {
+      color: #0d6efd;
+    }
+  </style>
+{% endblock %}
+{% block main %}
+<!-- About Section -->
+<section class="about-section text-center">
+    <div class="container">
+      <h2 class="about-heading">About Skyscanner</h2>
+      <p class="lead">Your go-to platform for booking flights, hotels, and car rentals across the world.</p>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <p>
+            At Skyscanner, we aim to provide the best online booking experience. Our platform allows users to compare flight prices, book accommodations, and rent cars with ease. 
+            Whether you're planning a vacation or a business trip, Skyscanner helps you find the best deals available. With a user-friendly interface and 24/7 customer support, 
+            we’re here to ensure a seamless travel booking experience.
+          </p>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <h4 class="about-heading">Our Mission</h4>
+          <p>To simplify travel booking and offer unbeatable prices globally.</p>
+        </div>
+        <div class="col-md-4">
+          <h4 class="about-heading">Our Vision</h4>
+          <p>To be the most trusted travel partner for people all over the world.</p>
+        </div>
+        <div class="col-md-4">
+          <h4 class="about-heading">Our Values</h4>
+          <p>Integrity, Excellence, and Customer Satisfaction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
