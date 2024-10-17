@@ -1,0 +1,111 @@
+{% extends "templates/pages/header_footer.html" %}
+
+{% block style %}
+    <style>
+        .center-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .form-box {
+            margin: 0 2rem;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .form-box h1 {
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+
+<div class="center-box mt-4">
+    <div class="form-box">
+        <h1>Book Your Flight</h1>
+
+        <form id="searchForm">
+            <div class="mb-3">
+                <label for="from" class="form-label">From</label>
+                <input type="text" class="form-control" id="from" placeholder="Departure City" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="to" class="form-label">To</label>
+                <input type="text" class="form-control" id="to" placeholder="Destination City" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" required>
+            </div>
+
+            <div class="d-grid">
+                <button class="btn btn-primary btn-block" type="submit">Search Flights</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="display: flex; gap: 2rem;">
+    {% for ticket in flights %}
+    <div class="card mb-3" style="max-width: 500px;" from="{{ ticket.source_airport }}" to="{{ ticket.destination_airport }}" date="{{ ticket.date_of_departure }}">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Flight {{ ticket.name }}</h5>
+                    <p class="card-text">
+                        {{ ticket.source_airport }} - {{ ticket.destination_airport }}<br>
+                        Date: {{ ticket.date_of_departure }}<br>
+                        Departure: {{ ticket.time_of_departure }}<br>
+                    </p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        filterTicket();
+    });
+
+    function filterTicket() {
+        const from = document.getElementById("from").value.toLowerCase();
+        const to = document.getElementById("to").value.toLowerCase();
+        const date = document.getElementById("date").value;
+
+       
+        const cards = document.getElementsByClassName("card");
+
+        for (var i = 0; i < cards.length; i++) {
+            const cardFrom = cards[i].getAttribute("from").toLowerCase();
+            const cardTo = cards[i].getAttribute("to").toLowerCase();
+            const cardDate = cards[i].getAttribute("date");
+
+            if (cardFrom === from && cardTo === to && cardDate === date) {
+                cards[i].style.display = ""; 
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
+{% endblock %}
