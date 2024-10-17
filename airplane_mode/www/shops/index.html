@@ -1,20 +1,102 @@
 {% extends "templates/pages/header_footer.html"%}
 
+{% block style %}
+<style>
+  body {
+    background-color: #e5e7e7;
+  }
+  
+  h1 {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
+
 {% block main %}
-<h1>Shops List:</h1>
-<div class="row">
+<h1 class="text-color">Shops List:</h1>
+
+<!-- Filter Dropdown -->
+ <div class="container bg-info border rounded p-2">
+  <h5 class="d-inline">Filters:</h5>
+    <span class="filter m-2">
+      <label for="availability">Availability:</label>
+      <select id="availability" onchange="filterShops()">
+        <option value="all">All</option>
+        <option value="available">Available</option>
+        <option value="not_available">Not Available</option>
+      </select>
+    </span>
+    <span class="filter">
+      <label for="airport">Airport:</label>
+      <select id="airport" onchange="filterShops()">
+        <option value="all">All</option>
+        <option value="Surat International">Surat International</option>
+        <option value="Delhi International">Delhi International</option>
+        <option value="Banglore Banaskantha">Banglore Banaskantha</option>
+      </select>
+    </span>
+ </div>
+
+
+
+<div class="row p-3" id="shops-list">
 {% for shop in shops %}
-
-    <div class="col-sm-4 mr-auto mx-2 my-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Shop Name: {{ shop.shop_name}}</h5>
-          <p class="card-text">Airport: {{ shop.airport }} <br> Rent: {{shop.rent_amount}} </p>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-        </div>
-      </div>
+<div class="col-sm-4 py-3 shop-card" data-available="{{ shop.is_available }}">
+  <div class="card">
+    <img class="card-img-top" src="{{ shop.image }}" alt="Card image cap" style="height: 15rem;">
+    <div class="card-body">
+      <h5 class="card-title text-color">Shop Name: {{ shop.shop_name }}</h5>
+      <h5 class="card-title text-color">Shop Number: {{ shop.shop_number }}</h5>
+      <p class="card-text">
+        Airport: {{ shop.airport }} <br> 
+        Rent: {{ shop.rent_amount }} <br> 
+        Total Area of shop: {{ shop.area_of_shop }} Sq.m <br>
+        Availabilities: {{ shop.is_available }} <br>
+      </p>
     </div>
-
-{%endfor %}
+  </div>
 </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  function filterShops() {
+    var filter = document.getElementById("availability").value;
+    var shops = document.getElementsByClassName("shop-card");
+    
+    for (var i = 0; i < shops.length; i++) {
+      if (filter === "all") {
+        shops[i].style.display = "block";
+      } else if (filter === "available" && shops[i].getAttribute("data-available") === "1") {
+        shops[i].style.display = "block";
+      } else if (filter === "not_available" && shops[i].getAttribute("data-available") === "0") {
+        shops[i].style.display = "block";
+      } else {
+        shops[i].style.display = "none";
+      }
+    }
+  }
+
+  function filterShops() {
+  var availabilityFilter = document.getElementById("availability").value;
+  var airportFilter = document.getElementById("airport").value;
+  var shops = document.getElementsByClassName("shop-card");
+
+  for (var i = 0; i < shops.length; i++) {
+    var isAvailable = shops[i].getAttribute("data-available") === "1";
+    var airport = shops[i].querySelector(".card-text").innerText.includes(airportFilter) || airportFilter === "all";
+
+    if ((availabilityFilter === "all" || (availabilityFilter === "available" && isAvailable) || (availabilityFilter === "not_available" && !isAvailable)) && airport) {
+      shops[i].style.display = "block";
+    } else {
+      shops[i].style.display = "none";
+    }
+  }
+}
+
+</script>
 {% endblock %}
