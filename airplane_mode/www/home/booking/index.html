@@ -1,0 +1,181 @@
+{% extends "templates/pages/header_footer.html" %}
+
+{% block style %}
+    <style>
+        /* Add your custom styles or Tailwind CSS here */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+<div class="container my-8">
+    <h1 class="text-3xl font-bold text-center mb-6">Book Ticket</h1>
+
+    <h3 class="text-xl font-semibold mb-4">Add Passenger:</h3>
+    <p class="mb-4">Please select a passenger and flight, and then enter the seat number.</p>
+
+    <!-- Add Passenger Form-->
+    <form class="container mb-8" id="passenger-form">
+        <h4 class="text-lg font-semibold mb-2">Add Passenger</h4>
+        <div class="mb-4">
+            <label for="first-name" class="block text-gray-700">First Name: </label>
+            <input type="text" class="block w-full p-2 border rounded" id="first-name" name="first_name" required>
+        </div>
+        <div class="mb-4">
+            <label for="last-name" class="block text-gray-700">Last Name: </label>
+            <input type="text" class="block w-full p-2 border rounded" id="last-name" name="last_name" required>
+        </div>
+        <div class="mb-4">
+            <label for="dob" class="block text-gray-700">DOB: </label>
+            <input type="date" class="block w-full p-2 border rounded" id="dob" name="dob" required>
+        </div>
+        <div>
+            <button class="btn btn-primary px-4 py-2 rounded mb-4" type="submit">Save Passenger</button>
+        </div>
+    </form>
+
+    <!-- Ticket Form -->
+    <form class="container mb-8" id="ticket-form">
+        <div class="mb-4">
+            <label for="flight-name" class="inline text-gray-700">Flight Name: </label>
+            <!-- <select name="flight-name" id="flight-name" class="block w-full p-2 border rounded">
+                {% for flight in flights %}
+                <option value="{{ flight.name }}">{{ flight.name }}</option>
+                {% endfor %}
+            </select> -->
+            <span id="flight-name" class="inline w-full p-2 border rounded"></span>
+        </div>
+
+        <div class="mb-4">
+            <label for="passenger-name" class="block text-gray-700">Passenger Name: </label>
+            <select name="passenger-name" id="passenger-name" class="block w-full p-2 border rounded">
+                {% for passenger in passengers %}
+                <option value="{{ passenger.name }}">{{ passenger.full_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="seat-number" class="block text-gray-700">Seat Number: </label>
+            <input type="number" name="seat-number" id="seat-number" class="block w-full p-2 border rounded">
+        </div>
+
+        <div class="mb-4">
+            <button type="submit" class="btn btn-primary px-4 py-2 rounded">Book Ticket</button>
+        </div>
+        <div id="message" class="text-center"></div>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Extract the ticket name from the query parameters
+    const ticketName = getQueryParam('ticket_name');
+    document.getElementById('flight-name').innerHTML = `${ticketName}`;
+            
+    // Booking Ticket
+    document.getElementById('ticket-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const passengerName = document.getElementById('passenger-name').value;
+        const flightName = ticketName
+        const seatNumber = document.getElementById('seat-number').value;
+
+        console.log(`Passenger Name: ${passengerName}`);
+        console.log(`Flight Name: ${flightName}`);
+        console.log(`Seat Number: ${seatNumber}`);
+
+        const ticketData = {
+            passenger_name: passengerName,
+            seat_no: seatNumber,
+            flight_name: flightName
+        };
+        console.log(ticketData);
+        const csrfToken =  "{{ csrf_token }}";
+
+        fetch('/api/method/airplane_mode.www.home.booking.index.post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Frappe-CSRF-Token': csrfToken  
+            },
+            body: JSON.stringify(ticketData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.log(response)
+                return response.json().then(errorData => {
+                    console.log(errorData)
+                    throw new Error(errorData.message.message || 'An unknown error occurred');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('message').innerHTML = `<div class="alert alert-success">Booked Ticket Successfully</div>`;
+            console.log(data);
+        })
+        .catch(error => {
+            const errorMessage = error.message.includes('fully booked') ? error.message : 'An error occurred: ' + error.message;
+            document.getElementById('message').innerHTML = `<div class="alert alert-danger">${errorMessage}</div>`;
+            console.error(error);
+        });
+    });
+
+    // Adding Passengers
+    document.getElementById('passenger-form').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+    
+        const first_name = document.getElementById('first-name').value;
+        const last_name = document.getElementById('last-name').value;
+        const dob = document.getElementById('dob').value;
+    
+        const passengerData = {
+            first_name: first_name,
+            last_name: last_name,
+            dob: dob
+        };
+        const csrfToken = "{{ csrf_token }}";
+
+        fetch('/api/method/airplane_mode.www.home.booking.index.addPassenger', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Frappe-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify(passengerData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData._server_messages || 'An unknown error occurred');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('message').innerHTML = `<div class="alert alert-success">Passenger added successfully!</div>`;
+            console.log(data);
+
+            // Dynamically add the new passenger to the select dropdown
+            const passengerSelect = document.getElementById('passenger-name');
+            const newOption = document.createElement('option');
+            newOption.value = passengerData.first_name;
+            newOption.text = passengerData.first_name+" "+ passengerData.last_name;
+            passengerSelect.appendChild(newOption);
+        })
+        .catch(error => {
+            document.getElementById('message').innerHTML = `<div class="alert alert-danger">An error occurred: ${error.message}</div>`;
+        });
+    });
+</script>
+{% endblock %}

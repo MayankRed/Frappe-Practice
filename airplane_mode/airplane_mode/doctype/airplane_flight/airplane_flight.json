@@ -26,7 +26,7 @@
   "column_break_pjzg",
   "time_of_departure",
   "gate_of_departure",
-  "amount_section",
+  "amount",
   "price"
  ],
  "fields": [
@@ -136,11 +136,6 @@
    "label": "Route"
   },
   {
-   "fieldname": "amount_section",
-   "fieldtype": "Section Break",
-   "label": "Amount"
-  },
-  {
    "fieldname": "price",
    "fieldtype": "Currency",
    "label": "Price",
@@ -151,13 +146,18 @@
    "fieldtype": "Int",
    "label": "Gate of Departure",
    "reqd": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Section Break",
+   "label": "Amount"
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2024-10-03 15:18:33.141438",
+ "modified": "2024-10-16 12:06:27.547700",
  "modified_by": "Administrator",
  "module": "Airplane Mode",
  "name": "Airplane Flight",
