@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "field:first_name",
+ "autoname": "format:{first_name}-{date_of_birth}-{####}",
  "creation": "2024-09-24 11:24:28.648352",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -21,8 +21,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "First Name ",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "last_name",
@@ -33,15 +32,13 @@
    "fieldname": "date_of_birth",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Date of Birth",
-   "reqd": 1
+   "label": "Date of Birth"
   },
   {
    "fieldname": "full_name",
    "fieldtype": "Data",
    "label": "Full Name",
-   "read_only": 1,
-   "unique": 1
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -51,11 +48,11 @@
    "link_fieldname": "passenger"
   }
  ],
- "modified": "2024-10-18 12:30:47.909539",
+ "modified": "2024-10-21 15:37:37.082800",
  "modified_by": "Administrator",
  "module": "Airplane Mode",
  "name": "Flight Passenger",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -66,7 +63,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "System Manager",
+   "role": "Passengers",
    "share": 1,
    "write": 1
   }

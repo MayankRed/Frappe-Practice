@@ -10,6 +10,7 @@
   "shop_name",
   "shop_number",
   "airport",
+  "image",
   "column_break_ukcy",
   "area_of_shop",
   "rent_amount",
@@ -50,7 +51,7 @@
   },
   {
    "fieldname": "area_of_shop",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Area of Shop"
   },
   {
@@ -58,18 +59,25 @@
    "fieldname": "rent_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Rent Amount"
+   "label": "Rent Amount",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "is_available",
    "fieldtype": "Check",
    "label": "Is Available"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-09 11:31:14.003095",
+ "modified": "2024-10-15 13:12:00.052405",
  "modified_by": "Administrator",
  "module": "Airport Shops",
  "name": "Shop",
@@ -84,7 +92,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "System Manager",
+   "role": "Airport Authority Personnel",
    "share": 1,
    "write": 1
   }
