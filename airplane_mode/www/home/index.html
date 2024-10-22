@@ -70,7 +70,7 @@
                         Date: {{ ticket.date_of_departure }}<br>
                         Departure: {{ ticket.time_of_departure }}<br>
                     </p>
-                    <a href="#" class="btn btn-primary">Book Now</a>
+                    <a href="javascript:void(0);" class="btn btn-primary" onclick="redirectToBooking('{{ ticket.name }}')">Book Now</a>
                 </div>
             </div>
         </div>
@@ -82,6 +82,10 @@
 
 {% block script %}
 <script>
+      function redirectToBooking(ticketName) {
+        // Redirect to /home/booking and pass the ticket name as a query parameter
+        window.location.href = `/home/booking?ticket_name=${encodeURIComponent(ticketName)}`;
+    }
     document.getElementById('searchForm').addEventListener('submit', function(event) {
         event.preventDefault();
         filterTicket();
@@ -95,7 +99,7 @@
        
         const cards = document.getElementsByClassName("card");
 
-        for (var i = 0; i < cards.length; i++) {
+        for (let i = 0; i < cards.length; i++) {
             const cardFrom = cards[i].getAttribute("from").toLowerCase();
             const cardTo = cards[i].getAttribute("to").toLowerCase();
             const cardDate = cards[i].getAttribute("date");

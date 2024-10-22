@@ -65,10 +65,10 @@
 {% block script %}
 <script>
   function filterShops() {
-    var filter = document.getElementById("availability").value;
-    var shops = document.getElementsByClassName("shop-card");
+    let filter = document.getElementById("availability").value;
+    let shops = document.getElementsByClassName("shop-card");
     
-    for (var i = 0; i < shops.length; i++) {
+    for (let i = 0; i < shops.length; i++) {
       if (filter === "all") {
         shops[i].style.display = "block";
       } else if (filter === "available" && shops[i].getAttribute("data-available") === "1") {
@@ -82,13 +82,13 @@
   }
 
   function filterShops() {
-  var availabilityFilter = document.getElementById("availability").value;
-  var airportFilter = document.getElementById("airport").value;
-  var shops = document.getElementsByClassName("shop-card");
+  let availabilityFilter = document.getElementById("availability").value;
+  let airportFilter = document.getElementById("airport").value;
+  let shops = document.getElementsByClassName("shop-card");
 
-  for (var i = 0; i < shops.length; i++) {
-    var isAvailable = shops[i].getAttribute("data-available") === "1";
-    var airport = shops[i].querySelector(".card-text").innerText.includes(airportFilter) || airportFilter === "all";
+  for (let i = 0; i < shops.length; i++) {
+    let isAvailable = shops[i].getAttribute("data-available") === "1";
+    let airport = shops[i].querySelector(".card-text").innerText.includes(airportFilter) || airportFilter === "all";
 
     if ((availabilityFilter === "all" || (availabilityFilter === "available" && isAvailable) || (availabilityFilter === "not_available" && !isAvailable)) && airport) {
       shops[i].style.display = "block";
