@@ -7,7 +7,8 @@ app_license = "mit"
 
 
 website_route_rules = [
-    {"from_route": "/shops", "to_route": "shops"},  
+    {"from_route": "/shops", "to_route": "shops"},
+    {"from_route": "/add-passenger", "to_route": "home/add-passenger/index"}
 ]
 
 # Apps
@@ -141,7 +142,11 @@ website_route_rules = [
 # Document Events
 # ---------------
 # Hook on document methods and events
-
+doc_events = {
+    "User": {
+        "after_insert": "airplane_mode.user_hooks.on_user_create"
+    }
+}
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",
