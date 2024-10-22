@@ -2,11 +2,11 @@ import frappe
 
 def get_context(context):
     context.csrf_token = frappe.sessions.get_csrf_token()
-    context.passengers = frappe.get_all("Flight Passenger", fields = {"name","full_name"})
+    # context.passengers = frappe.get_all("Flight Passenger", fields = {"name","full_name"})
     context.flights = frappe.get_all("Airplane Flight", fields = {"name","airplane"})
     
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def post():
     data = frappe.parse_json(frappe.local.request.get_data(as_text = True))
 
@@ -32,7 +32,7 @@ def post():
         frappe.local.response["http_status_code"] = 500 
         return {"message": f"An error occurred: {str(e)}"}
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def addPassenger():
     data = frappe.parse_json(frappe.local.request.get_data(as_text=True))
 
@@ -41,7 +41,7 @@ def addPassenger():
     dob = data.get('dob')
 
     if not first_name or not last_name or not dob:
-        frappe.local.response["http_status_code"] = 400 
+        frappe.local.response["http_status_code"] = 400
         return {"message": "All fields are required"}
 
     try:

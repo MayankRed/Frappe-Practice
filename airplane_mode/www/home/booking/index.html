@@ -14,6 +14,7 @@
 <div class="container my-8">
     <h1 class="text-3xl font-bold text-center mb-6">Book Ticket</h1>
 
+    <div id="message" class="text-center"></div>
     <h3 class="text-xl font-semibold mb-4">Add Passenger:</h3>
     <p class="mb-4">Please select a passenger and flight, and then enter the seat number.</p>
 
@@ -52,9 +53,9 @@
         <div class="mb-4">
             <label for="passenger-name" class="block text-gray-700">Passenger Name: </label>
             <select name="passenger-name" id="passenger-name" class="block w-full p-2 border rounded">
-                {% for passenger in passengers %}
+                <!-- {% for passenger in passengers %}
                 <option value="{{ passenger.name }}">{{ passenger.full_name }}</option>
-                {% endfor %}
+                {% endfor %} -->
             </select>
         </div>
 
@@ -66,7 +67,7 @@
         <div class="mb-4">
             <button type="submit" class="btn btn-primary px-4 py-2 rounded">Book Ticket</button>
         </div>
-        <div id="message" class="text-center"></div>
+       
     </form>
 </div>
 {% endblock %}
@@ -157,14 +158,15 @@
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(errorData._server_messages || 'An unknown error occurred');
+                    console.log(errorData)
+                    throw new Error(errorData._error_message || 'An unknown error occurred');
                 });
             }
             return response.json();
         })
         .then(data => {
             document.getElementById('message').innerHTML = `<div class="alert alert-success">Passenger added successfully!</div>`;
-            console.log(data);
+            // console.log(data);
 
             // Dynamically add the new passenger to the select dropdown
             const passengerSelect = document.getElementById('passenger-name');
