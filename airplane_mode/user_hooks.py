@@ -6,4 +6,4 @@ def on_user_create(doc, method):
             'first_name': doc.first_name,
             'last_name': doc.last_name,
         })
-    passenger.insert()
+    passenger.insert() 
